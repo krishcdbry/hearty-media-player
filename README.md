@@ -1,7 +1,10 @@
 # Hearty Media Player (hearty-media-player) [![NPM version](https://img.shields.io/npm/v/hearty-media-player.svg)](https://www.npmjs.com/package/hearty-media-player)
 [![Downloads](http://img.shields.io/npm/dm/hearty-media-player.svg)](https://npmjs.org/package/hearty-media-player)
+
 A React media component which provides video player with custom video controls, Which can play videos by receving URLs as input. 
 
+![Hearty Media Player](/assets/preview-1.png)
+![Hearty Media Player](/assets/preview-2.png)
 
 ## INDEX
 
@@ -251,7 +254,6 @@ class App extends React.Component {
                         autoplay={true}
                         muted={false}
                         loop={true}
-                        allowFullScreen={true}
                         allowFullScreen={true}
                         allowForward={true}
                         allowBackward={true}
