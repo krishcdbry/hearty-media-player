@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry : __dirname + '/src/elite-media-player.js',
+    entry : __dirname + '/src/video.js',
     module : {
         rules : [
             {
