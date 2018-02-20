@@ -3,8 +3,7 @@
 
 A React media component which provides video player with custom video controls, Which can play videos by receving URLs as input. 
 
-![Hearty Media Player](/assets/preview-1.png)
-![Hearty Media Player](/assets/preview-2.png)
+![Hearty Media Player](/assets/preview.png)
 
 ## INDEX
 
