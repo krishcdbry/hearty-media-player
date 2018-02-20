@@ -1,0 +1,12 @@
+*.swp
+npm-debug.log
+
+/.git
+/.nyc_output
+/src
+/demo
+
+.babelrc
+.gitignore
+webpack.config.js
+webpack.demo.config.js
