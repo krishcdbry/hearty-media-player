@@ -2,7 +2,6 @@
 [![Downloads](http://img.shields.io/npm/dm/hearty-media-player.svg)](https://npmjs.org/package/hearty-media-player)
 A React media component which provides video player with custom video controls, Which can play videos by receving URLs as input. 
 
-----------------------------------------------------------------------------------------------------
 
 ## INDEX
 
@@ -25,7 +24,7 @@ A React media component which provides video player with custom video controls, 
 
 
 ## Getting Started
------
+
 
 ```javascript
 npm i hearty-media-player 
@@ -38,7 +37,7 @@ npm install hearty-media-player
 ```
 
 # Props
---------------------------------------
+
 
 ## General Props
 
@@ -97,7 +96,7 @@ Name          | Required | Type     | Description |
 
 
 # Usage
--------------------------------------------
+
 
 ## Example 1
 
