@@ -62,7 +62,8 @@ class HeartyMediaPlayer extends React.Component {
             showPlaybackOptions: false,
             fixedTop: false,
             mouseOver : true,
-            poster : poster || null
+            poster : poster || null,
+            started : false,
         }
 
         this.video = null;
@@ -108,6 +109,7 @@ class HeartyMediaPlayer extends React.Component {
         this.setState({
             playing : true,
             replay : false,
+            started : true,
             showPlaybackOptions: false
         });
 
@@ -490,7 +492,7 @@ class HeartyMediaPlayer extends React.Component {
 
         let videoCurtainStyle = {};
 
-        if (this.state.poster && (this.state.replay || this.state.playing)) {
+        if (this.state.poster && (this.state.replay || !this.state.started)) {
             videoCurtainStyle = {
                 'background' : 'url('+this.state.poster+')'
             }

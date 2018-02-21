@@ -60,7 +60,7 @@
 
 .hearty-media-player {
     &.fixed {
-        width: 99vw;
+        width: 75vw;
         position: fixed;
         z-index: 9999999;
         top: 0;
@@ -74,7 +74,7 @@
         width: inherit;
         height: 100%;
         width: 100%;
-        padding-top: 56%;
+        padding-top: 56.25%;
         background: #333;
 
         .video-curtain {
