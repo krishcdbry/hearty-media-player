@@ -641,6 +641,9 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_onPlaying',
         value: function _onPlaying() {
+            if (!this.video) {
+                return;
+            }
             var time = this.video.currentTime / this.video.duration * 100;
             if (time.toString() == 'NaN') {
                 return;
@@ -659,6 +662,9 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_onEnded',
         value: function _onEnded() {
+            if (!this.video) {
+                return;
+            }
             var onEndVideo = this.props.onEndVideo;
 
             this.setState({
