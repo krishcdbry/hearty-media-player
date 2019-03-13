@@ -149,6 +149,9 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _onPlaying() {
+        if (!this.video) {
+            return;
+        }
         let time = (this.video.currentTime/this.video.duration)*100;
         if (time.toString() == 'NaN') {
             return;
@@ -164,6 +167,9 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _onEnded() {
+        if (!this.video) {
+            return;
+        }
         let {onEndVideo} = this.props;
         this.setState({
             playing : false,
