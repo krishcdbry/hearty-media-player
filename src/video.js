@@ -13,6 +13,18 @@ import {
     progressStyle,
 } from './constants';
 
+import play from '../assets/play.png';
+import pause from '../assets/pause.png';
+import forward from '../assets/forward.png';
+import backward from '../assets/backward.png';
+import replay from '../assets/replay.png';
+import settings from '../assets/settings.png';
+import fullscreen from '../assets/fullscreen.png';
+import expand from '../assets/expand.png';
+import fixedTop from '../assets/fixed-top.png';
+import fixedRemove from '../assets/fixed-remove.png';
+
+
 require('./app.scss');
 
 /**
@@ -480,18 +492,18 @@ class HeartyMediaPlayer extends React.Component {
     // Renders the Component
     render() {
         
-        let playPauseElem = <img src="../assets/play.png"/>;
+        let playPauseElem = <img src={play}/>;
         let playPauseFun = this._play.bind(this);
         let videoCurtainClass = 'video-curtain show';
 
         if (this.state.playing) {
-            playPauseElem =  <img src="../assets/pause.png"/>;
+            playPauseElem =  <img src={pause}/>;
             playPauseFun = this._pause.bind(this);
             videoCurtainClass = 'video-curtain';
         }
 
         if (this.state.replay) {
-            playPauseElem =  <img src="../assets/replay.png"/>;
+            playPauseElem =  <img src={replay}/>;
             playPauseFun = this._play.bind(this);
             videoCurtainClass = 'video-curtain show';
         }
@@ -534,7 +546,7 @@ class HeartyMediaPlayer extends React.Component {
 
         let heartyMediaPlayerId = this.state.id || generateRandomId();
 
-        let fixedTopIcon = (this.state.fixedTop) ? '../assets/fixed-remove.png' : '../assets/fixed-top.png';
+        let fixedTopIcon = (this.state.fixedTop) ? fixedRemove : fixedTop;
        
         let heartyMediaPlayerClassStyle = {
             // width: '700px'
@@ -542,7 +554,7 @@ class HeartyMediaPlayer extends React.Component {
 
         let fullScreenOption = (this.props.allowFullScreen) ? (
                 <a href="javascript:;" className="control-option" onClick={this._activateFullScreen.bind(this)}>
-                    <img src="../assets/fullscreen.png"/>
+                    <img src={fullscreen}/>
                 </a>
             ) : '';
 
@@ -554,13 +566,13 @@ class HeartyMediaPlayer extends React.Component {
             
         let forwardOption = (this.props.allowForward) ? (
             <a href="javascript:;" className="control-option" onClick={this._forwaredVideo.bind(this)}>
-                <img src="../assets/forward.png"/>
+                <img src={forward}/>
             </a>
             ) : '';
 
         let backwardOption = (this.props.allowBackward) ? (
             <a href="javascript:;" className="control-option" onClick={this._backwardVideo.bind(this)}>
-                <img src="../assets/backward.png"/>
+                <img src={backward}/>
             </a>
         ) : '';
 

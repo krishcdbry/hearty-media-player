@@ -475,46 +475,6 @@ var _helpers = __webpack_require__(8);
 
 var _constants = __webpack_require__(9);
 
-var _play2 = __webpack_require__(15);
-
-var _play3 = _interopRequireDefault(_play2);
-
-var _pause2 = __webpack_require__(16);
-
-var _pause3 = _interopRequireDefault(_pause2);
-
-var _forward = __webpack_require__(17);
-
-var _forward2 = _interopRequireDefault(_forward);
-
-var _backward = __webpack_require__(18);
-
-var _backward2 = _interopRequireDefault(_backward);
-
-var _replay = __webpack_require__(19);
-
-var _replay2 = _interopRequireDefault(_replay);
-
-var _settings = __webpack_require__(20);
-
-var _settings2 = _interopRequireDefault(_settings);
-
-var _fullscreen = __webpack_require__(21);
-
-var _fullscreen2 = _interopRequireDefault(_fullscreen);
-
-var _expand = __webpack_require__(22);
-
-var _expand2 = _interopRequireDefault(_expand);
-
-var _fixedTop = __webpack_require__(23);
-
-var _fixedTop2 = _interopRequireDefault(_fixedTop);
-
-var _fixedRemove = __webpack_require__(24);
-
-var _fixedRemove2 = _interopRequireDefault(_fixedRemove);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -523,7 +483,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-__webpack_require__(25);
+__webpack_require__(15);
 
 /**
  * @name : HeartyMediaPlayer
@@ -552,6 +512,7 @@ var HeartyMediaPlayer = function (_React$Component) {
             id = _this$props.id,
             className = _this$props.className,
             poster = _this$props.poster,
+            title = _this$props.title,
             preload = _this$props.preload,
             autoplay = _this$props.autoplay,
             muted = _this$props.muted,
@@ -562,6 +523,7 @@ var HeartyMediaPlayer = function (_React$Component) {
             src: src,
             id: id || null,
             className: className || null,
+            title: title || null,
             sourceElem: null,
             preload: preload,
             autoplay: autoplay,
@@ -681,9 +643,6 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_onPlaying',
         value: function _onPlaying() {
-            if (!this.video) {
-                return;
-            }
             var time = this.video.currentTime / this.video.duration * 100;
             if (time.toString() == 'NaN') {
                 return;
@@ -702,9 +661,6 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_onEnded',
         value: function _onEnded() {
-            if (!this.video) {
-                return;
-            }
             var onEndVideo = this.props.onEndVideo;
 
             this.setState({
@@ -1069,18 +1025,18 @@ var HeartyMediaPlayer = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
-            var playPauseElem = _react2.default.createElement('img', { src: _play3.default });
+            var playPauseElem = _react2.default.createElement('img', { src: '../assets/play.png' });
             var playPauseFun = this._play.bind(this);
             var videoCurtainClass = 'video-curtain show';
 
             if (this.state.playing) {
-                playPauseElem = _react2.default.createElement('img', { src: _pause3.default });
+                playPauseElem = _react2.default.createElement('img', { src: '../assets/pause.png' });
                 playPauseFun = this._pause.bind(this);
                 videoCurtainClass = 'video-curtain';
             }
 
             if (this.state.replay) {
-                playPauseElem = _react2.default.createElement('img', { src: _replay2.default });
+                playPauseElem = _react2.default.createElement('img', { src: '../assets/replay.png' });
                 playPauseFun = this._play.bind(this);
                 videoCurtainClass = 'video-curtain show';
             }
@@ -1123,7 +1079,7 @@ var HeartyMediaPlayer = function (_React$Component) {
 
             var heartyMediaPlayerId = this.state.id || (0, _helpers.generateRandomId)();
 
-            var fixedTopIcon = this.state.fixedTop ? _fixedRemove2.default : _fixedTop2.default;
+            var fixedTopIcon = this.state.fixedTop ? '../assets/fixed-remove.png' : '../assets/fixed-top.png';
 
             var heartyMediaPlayerClassStyle = {
                 // width: '700px'
@@ -1132,7 +1088,7 @@ var HeartyMediaPlayer = function (_React$Component) {
             var fullScreenOption = this.props.allowFullScreen ? _react2.default.createElement(
                 'a',
                 { href: 'javascript:;', className: 'control-option', onClick: this._activateFullScreen.bind(this) },
-                _react2.default.createElement('img', { src: _fullscreen2.default })
+                _react2.default.createElement('img', { src: '../assets/fullscreen.png' })
             ) : '';
 
             var fixedTopOption = this.props.allowFixedTop ? _react2.default.createElement(
@@ -1144,13 +1100,13 @@ var HeartyMediaPlayer = function (_React$Component) {
             var forwardOption = this.props.allowForward ? _react2.default.createElement(
                 'a',
                 { href: 'javascript:;', className: 'control-option', onClick: this._forwaredVideo.bind(this) },
-                _react2.default.createElement('img', { src: _forward2.default })
+                _react2.default.createElement('img', { src: '../assets/forward.png' })
             ) : '';
 
             var backwardOption = this.props.allowBackward ? _react2.default.createElement(
                 'a',
                 { href: 'javascript:;', className: 'control-option', onClick: this._backwardVideo.bind(this) },
-                _react2.default.createElement('img', { src: _backward2.default })
+                _react2.default.createElement('img', { src: '../assets/backward.png' })
             ) : '';
 
             return _react2.default.createElement(
@@ -1169,7 +1125,12 @@ var HeartyMediaPlayer = function (_React$Component) {
                     { className: 'video-wrapper' },
                     _react2.default.createElement(
                         'div',
-                        { className: videoCurtainClass, onClick: playPauseFun, style: videoCurtainStyle },
+                        { className: videoCurtainClass, style: videoCurtainStyle },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'video-title' },
+                            this.state.title
+                        ),
                         _react2.default.createElement(
                             'div',
                             { className: 'video-curtain-icon' },
@@ -2949,6 +2910,7 @@ var propTypes = {
     id: _propTypes2.default.string, // An Id for the player component.
     className: _propTypes2.default.string, // A custom classname for the player component
     poster: _propTypes2.default.string, // Url to the poster image to be shown before video plays
+    title: _propTypes2.default.string, // A title to show on the video header
 
     preload: _propTypes2.default.bool, // Determines weather the video loads by default
     autoplay: _propTypes2.default.bool, // Determines weather the video loads & plays by default
@@ -3824,70 +3786,10 @@ module.exports = function() {
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAaVBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHi1fjYAAAAInRSTlMAAQIDBQcJEBITFyUmKj5ERV1eZoKDjI6qq7TO1ejt+fv99RE5/AAAAIZJREFUKM990dsWgiAUhOENmmnZwVOWlta8/0N2pQIye26/tVg/IFImwofpbjgC74uCwHBSEOgzBfFrEo6IlcHZrgzegjIEe2QKemXYb7oZjlsZ4htSBVtL8ZnTY8czrf1c6T3nytJH6A70+ZaOCI4l/U+3I8C5tsIw6HDxVQjZN9Kx7sjpD/CkLTAW3lsfAAAAAElFTkSuQmCC"
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAIVBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PFi4CmcAAAACnRSTlMAFBwxQI+o4u/1repwLAAAACdJREFUGJVjYGDIWrUqgIGxa9VKBQYQWLVqVQEDM5B0GOUOHBc5UgC5XYHfuempgAAAAABJRU5ErkJggg=="
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAYFBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PGGK8ChAAAAH3RSTlMAAQIDBQYHEBESExQgISI6R2SwsrTR09Xi6ev3+fv93NgQvwAAAKNJREFUKJFV0dkWgjAMRdGIAyqKI871/v9fAi2lJ3k7az8kq7VXbWV218o4ekMb3ZyK2sirqAM6HVKfGkgVNSJU1IRFRZ1Q98ph0oxZNesWOKmoBZOKCowq6llemfq7OjkMF9ZzRQwtdz423BlaXjua0YDRZgxHvlAyo804mdEyZksYDvzPLpvREhYb8ZctIsxoI3ZrA8IGdGZfmO29mavF0lkPct8wdO3xU2oAAAAASUVORK5CYII="
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAATlBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PGG4WDbAAAAGXRSTlMAAQQGJicoQkRFRkdJS01tb5WlrbCyuuT9gAYikAAAAJtJREFUKJF90s0Kg0AMBOBxqoJSsNi+/ytqC+r20u3BvwlmN7fhOwSSIWTKXlN3p9pL06Ml1Qq1BmDGTnTsQM92rDzbsHp6tmLCQAB1wkCg7hMGZgws1YpODTT7bi0Mjpp+weL3ozgaJSbVaJTIKAFM74QSAOaErodP6PayefR0f/bi6VETT8+CLcNFpZrholrjMESjURHB7B2mP0/GRj5fEY7IAAAAAElFTkSuQmCC"
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAzFBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PFgrzeOAAAAQ3RSTlMAAQMEBQgKCw8QERUWFxgZGh4hIiMlJi4vMDU2OkBESUpMXV5iZmlzd3l7fn+eq7q+wcXHzs/R1dfa4OLm7e/z9fv9rUvGKgAAAOhJREFUGBl1wYdCglAAhtHfwGjZznBcLRO1zKYtshzf+79TdE2Um5yjjE3li4xyRRjlicAoRwQYrReRuNRaEdbsvXsslx+TejiUI4hJ3N0+kriQI4gBIxW7QEuOIAajxNE3VOQIYox+7U352pAjiI2sBrTkCiqyCh98KlcbtpTnDMqyCr4vxy7UZdVgX1kHUJV1CufKCuFEVhFulNWHouaeGXta5U940p86XGtVH+paGEJDS00YKrUzgSsttGGyraXyFF6qviS/9grTslaVRiTGb2MSo5KyvM6MuVnH0z9e2BvcD3qhp9QPDK0qWOKn49MAAAAASUVORK5CYII="
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAA/FBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PGMf6PNAAAAU3RSTlMAAQIDBQYHCAoLDRAREhMVFxkaGxwgIiUrMTI0ODk6OzxAR0lKS0xNUFZbXV5sbXBzeHl+f4CIi4yVmp2gqquvtLW3vMHDx8jMztPV4OTr8fX5+/R6z+QAAAD9SURBVBgZdcFpOwJRAIbh54RCQrITEpJddsoass/0/v//Ys45M119mO6bPieygjxpPuWskMLIq5NiVN45/TLXa0OQu5T3swRMn67iHErh2W6gnvvqhxRkieSV7orIgwaYhWUN8g7fSgS1HKbUUg9sdOX9FXAaij0Bk19yysQ6co4NkcyrIqEhVpFVxWsq0iZRlDWH11SkTaIoax4n01YkNMQqsraxxjtyysQ6choGFgN5fxM4DcXe4E2JoJbFlFrqgQUN8gvcaYB1YKyrVC9Y+5Ju6oF6OjuvkqawzO3WCOQu5IWbBgpHe/QblvdImkBOgzTPcnZIcyArnCHxD5+7i5ItNlScAAAAAElFTkSuQmCC"
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAFVBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHg7zR6AAAABnRSTlMAAQUGJ2Twj7WFAAAARElEQVQYlWMwcQECAQYGRhDtzOCWBgQKDAxMIDqFIDcEptcVzHVggAIWCrlCSgIwLqOSIgPtAJpFVPQCRuCQELCokQIAPZY17c2UXvYAAAAASUVORK5CYII="
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcAgMAAAAPYzcHAAAACVBMVEUAAADs8PHs8PHq9RlVAAAAAnRSTlMAQABPjKgAAAAzSURBVAhbY1gFAQyk0hQAESidCaEYVzmAabZVE8C01KolYDpr1UqI9CqoAqwgFAJwuRMAKUg43MoYjzYAAAAASUVORK5CYII="
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAATlBMVEUAAADs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PHs8PGG4WDbAAAAGXRSTlMABQoSExUvMDFPaHN0dXyJnq+wvL7X3u39iqGiNAAAAF9JREFUKM+10TcOgDAUBNFPzjnu/S+KhGVhwOsGPO0rR+SXoqWkFm9A5TCmyuyqDagd9lbTnno3oHGYqW+71GZa7aaU2andyBqSDw+LaSb1geygpcINuR/MpKW2huKnA8KzJRTl5nQkAAAAAElFTkSuQmCC"
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAAXNSR0IArs4c6QAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAARFJREFUSA3t07EKwjAQBuC7QB0UOijuujj7WO7q6Auom5O+lIsgvkAFa20TZ3vmihS1VaM0RcSDQkiT/+PSFOBfBZ8Aep5Xdaq1FQK0C87OxiGMcBeGXYFimX1rZ0boWN1cecVgqVU+SABxiS3GSEROIOUcQLTswhQD4cyu8Q3puD0em87ptABE+78H0SZB/EgNEWhs+QQOFYGdtCvLaIK5rhukIHdnCU0xNm5AC+gNlgsWiGawh2ABaC72FLygA317Jzx+ox5inJH5hvfB+iK9gz7FjEBeZIi+xIzBBA1VH5GmPM4pI4z3vTzS63A/HzXGrrOMx4zuI0mXJ1BKNYw3f7rQj6KeBtdSyvqnGb+77wzfTYS6y7/qSAAAAABJRU5ErkJggg=="
-
-/***/ }),
-/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(26);
+var content = __webpack_require__(16);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -3901,7 +3803,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(28)(content, options);
+var update = __webpack_require__(18)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -3933,21 +3835,21 @@ if(false) {
 }
 
 /***/ }),
-/* 26 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(27)(false);
+exports = module.exports = __webpack_require__(17)(false);
 // imports
 
 
 // module
-exports.push([module.i, ".hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n  -webkit-transition: all 1s ease 0s;\n  -moz-transition: all 1s ease 0s;\n  -ms-transition: all 1s ease 0s;\n  -o-transition: all 1s ease 0s;\n  transition: all 1s ease 0s; }\n  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img:hover, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label:hover {\n    transform: scale(1.1); }\n\n.hearty-media-player .video-wrapper .video-curtain, .hearty-media-player .video-wrapper video {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%; }\n\n.show {\n  display: block !important; }\n\n.hide {\n  display: none !important; }\n\n.visible {\n  opacity: 1 !important; }\n\n.hidden {\n  opacity: 0 !important; }\n\n.hearty-media-player.fixed {\n  width: 75vw;\n  position: fixed;\n  z-index: 9999999;\n  top: 0;\n  left: 50%;\n  margin: 0px auto;\n  transform: translate(-50%, 0%); }\n\n.hearty-media-player .video-wrapper {\n  position: relative;\n  width: inherit;\n  height: 100%;\n  width: 100%;\n  padding-top: 56.25%;\n  background: #333; }\n  .hearty-media-player .video-wrapper .video-curtain {\n    z-index: 5;\n    display: none;\n    background-size: cover !important;\n    background-repeat: no-repeat !important;\n    background-position: 50% !important; }\n    .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon {\n      background: rgba(0, 0, 0, 0.5);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      height: 100%; }\n      .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon img {\n        font-size: 32px; }\n  .hearty-media-player .video-wrapper video:-webkit-full-screen {\n    width: 100%;\n    height: 100%; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls {\n    display: none !important; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls-enclosure {\n    display: none !important; }\n  .hearty-media-player .video-wrapper .video-controls {\n    position: absolute;\n    bottom: -1px;\n    height: auto;\n    width: 100%;\n    z-index: 6; }\n    .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n      width: 100%;\n      display: inline-flex;\n      align-items: center;\n      flex-wrap: nowrap;\n      padding: 11px 0px;\n      justify-content: space-between;\n      background: rgba(0, 0, 0, 0.3); }\n      .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section {\n        display: inline-flex;\n        align-items: center; }\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n          width: 30px;\n          display: flex;\n          justify-content: center;\n          height: 100%;\n          text-decoration: none !important; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.video-time-info {\n            font-size: 11px;\n            color: #fff;\n            text-shadow: 0px 1px 2px #000;\n            width: auto; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n            height: 14px;\n            vertical-align: middle;\n            filter: drop-shadow(1px 2px 6px #000);\n            -webkit-filter: drop-shadow(1px 2px 6px #000); }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate {\n            width: 45px; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n              color: #fff;\n              font-size: 9px;\n              background: transparent;\n              padding: 2px 2px;\n              width: 24px;\n              border: 1px solid #f0f0f0;\n              text-align: center;\n              text-transform: lowercase;\n              border-radius: 2px;\n              width: 23px;\n              box-shadow: 0px 1px 1px #000; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options {\n              position: absolute;\n              height: auto;\n              bottom: 32px;\n              background: #fff;\n              color: #000;\n              font-size: 12px;\n              text-align: center;\n              display: none;\n              border-radius: 2px;\n              box-shadow: 0px 1px 1px #000; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options.show {\n                display: block; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options .options-title {\n                color: #fff;\n                font-size: 14px;\n                padding: 5px 0px;\n                display: block;\n                background: limegreen;\n                color: #fff;\n                font-size: 12px;\n                border-radius: 2px 2px 0px 0px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul {\n                margin: 0;\n                text-align: left;\n                list-style: none;\n                padding: 0; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span {\n                  padding: 7px 7px;\n                  display: block; }\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span:hover {\n                    background: #f0f0f0;\n                    color: #22a0ce; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume {\n            align-items: baseline; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n              width: 3px;\n              height: 3px;\n              margin: 1px;\n              background: #999;\n              box-shadow: 0px 1px 1px #000; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div.fill {\n                background: #fff; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                height: 6px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                height: 8px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                height: 10px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                height: 12px; }\n    .hearty-media-player .video-wrapper .video-controls.fullscreen-mode {\n      position: fixed;\n      bottom: 0;\n      left: 0;\n      z-index: 2147483647; }\n      .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper {\n        padding: 18px 0px; }\n        .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option {\n          width: 39px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-label {\n            font-size: 11px;\n            width: 30px;\n            padding: 4px 2px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-options {\n            bottom: 42px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.fixed-top {\n            display: none; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.video-time-info {\n            font-size: 14px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option img {\n            height: 19px; }\n    .hearty-media-player .video-wrapper .video-controls .video-progress-tracker {\n      position: relative;\n      margin-right: 6px;\n      width: 100%; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker .progress-elem {\n        position: absolute;\n        width: 100%;\n        top: -5px;\n        z-index: 0; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange {\n        position: absolute;\n        width: 100%;\n        top: -9px;\n        z-index: 5;\n        -webkit-appearance: none;\n        width: 100%;\n        height: 14px;\n        outline: none;\n        opacity: 0.7;\n        -webkit-transition: .2s;\n        transition: opacity .2s;\n        background: transparent; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-webkit-slider-thumb {\n          -webkit-appearance: none;\n          appearance: none;\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-moz-range-thumb {\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n", ""]);
+exports.push([module.i, ".hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n  -webkit-transition: all 1s ease 0s;\n  -moz-transition: all 1s ease 0s;\n  -ms-transition: all 1s ease 0s;\n  -o-transition: all 1s ease 0s;\n  transition: all 1s ease 0s; }\n  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img:hover, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label:hover {\n    transform: scale(1.1); }\n\n.hearty-media-player .video-wrapper .video-curtain, .hearty-media-player .video-wrapper video {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%; }\n\n.show {\n  display: block !important; }\n\n.hide {\n  display: none !important; }\n\n.visible {\n  opacity: 1 !important; }\n\n.hidden {\n  opacity: 0 !important; }\n\n.hearty-media-player {\n  box-shadow: 0px 2px 5px #999; }\n  .hearty-media-player.fixed {\n    width: 75vw;\n    position: fixed;\n    z-index: 9999999;\n    top: 0;\n    left: 50%;\n    margin: 0px auto;\n    transform: translate(-50%, 0%); }\n  .hearty-media-player .video-wrapper {\n    position: relative;\n    width: inherit;\n    height: 100%;\n    width: 100%;\n    padding-top: 56.25%;\n    background: #333; }\n    .hearty-media-player .video-wrapper .video-title {\n      position: absolute;\n      padding: 13px 25px;\n      font-size: 13px;\n      color: #f0f0f0; }\n    .hearty-media-player .video-wrapper .video-curtain {\n      z-index: 5;\n      display: none;\n      background-size: cover !important;\n      background-repeat: no-repeat !important;\n      background-position: 50% !important; }\n      .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon {\n        background: rgba(0, 0, 0, 0.5);\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        width: 100%;\n        height: 100%; }\n        .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon img {\n          font-size: 32px; }\n    .hearty-media-player .video-wrapper video {\n      top: -3px; }\n      .hearty-media-player .video-wrapper video:-webkit-full-screen {\n        width: 100%;\n        height: 100%; }\n      .hearty-media-player .video-wrapper video::-webkit-media-controls {\n        display: none !important; }\n      .hearty-media-player .video-wrapper video::-webkit-media-controls-enclosure {\n        display: none !important; }\n    .hearty-media-player .video-wrapper .video-controls {\n      position: absolute;\n      bottom: -1px;\n      height: auto;\n      width: 100%;\n      z-index: 6; }\n      .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n        width: 100%;\n        display: inline-flex;\n        align-items: center;\n        flex-wrap: nowrap;\n        padding: 19px 0px;\n        justify-content: space-between;\n        background: rgba(0, 0, 0, 0.3); }\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section {\n          display: inline-flex;\n          align-items: center; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n            width: 30px;\n            display: flex;\n            justify-content: center;\n            height: 100%;\n            text-decoration: none !important; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.video-time-info {\n              font-size: 11px;\n              color: #fff;\n              text-shadow: 0px 1px 2px #000;\n              width: auto; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n              height: 14px;\n              vertical-align: middle;\n              filter: drop-shadow(1px 2px 6px #000);\n              -webkit-filter: drop-shadow(1px 2px 6px #000); }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate {\n              width: 45px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n                color: #fff;\n                font-size: 9px;\n                background: transparent;\n                padding: 2px 2px;\n                width: 24px;\n                border: 1px solid #f0f0f0;\n                text-align: center;\n                text-transform: lowercase;\n                border-radius: 2px;\n                width: 23px;\n                box-shadow: 0px 1px 1px #000; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options {\n                position: absolute;\n                height: auto;\n                bottom: 32px;\n                background: #fff;\n                color: #000;\n                font-size: 12px;\n                text-align: center;\n                display: none;\n                border-radius: 2px;\n                box-shadow: 0px 1px 1px #000; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options.show {\n                  display: block; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options .options-title {\n                  color: #fff;\n                  font-size: 14px;\n                  padding: 5px 0px;\n                  display: block;\n                  background: limegreen;\n                  color: #fff;\n                  font-size: 12px;\n                  border-radius: 2px 2px 0px 0px; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul {\n                  margin: 0;\n                  text-align: left;\n                  list-style: none;\n                  padding: 0; }\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span {\n                    padding: 7px 7px;\n                    display: block; }\n                    .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span:hover {\n                      background: #f0f0f0;\n                      color: #22a0ce; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume {\n              align-items: baseline; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n                width: 3px;\n                height: 3px;\n                margin: 1px;\n                background: #999;\n                box-shadow: 0px 1px 1px #000; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div.fill {\n                  background: #fff; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                  height: 6px; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                  height: 8px; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                  height: 10px; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                  height: 12px; }\n      .hearty-media-player .video-wrapper .video-controls.fullscreen-mode {\n        position: fixed;\n        bottom: 0;\n        left: 0;\n        z-index: 2147483647; }\n        .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper {\n          padding: 18px 0px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option {\n            width: 39px; }\n            .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-label {\n              font-size: 11px;\n              width: 30px;\n              padding: 4px 2px; }\n            .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-options {\n              bottom: 42px; }\n            .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.fixed-top {\n              display: none; }\n            .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.video-time-info {\n              font-size: 14px; }\n            .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option img {\n              height: 19px; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker {\n        position: relative;\n        margin-right: 6px;\n        width: 100%; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker .progress-elem {\n          position: absolute;\n          width: 100%;\n          top: -5px;\n          z-index: 0; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange {\n          position: absolute;\n          width: 100%;\n          top: -9px;\n          z-index: 5;\n          -webkit-appearance: none;\n          width: 100%;\n          height: 14px;\n          outline: none;\n          opacity: 0.7;\n          -webkit-transition: .2s;\n          transition: opacity .2s;\n          background: transparent; }\n          .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-webkit-slider-thumb {\n            -webkit-appearance: none;\n            appearance: none;\n            width: 9px;\n            height: 19px;\n            background: transparent;\n            cursor: pointer; }\n          .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-moz-range-thumb {\n            width: 9px;\n            height: 19px;\n            background: transparent;\n            cursor: pointer; }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 27 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /*
@@ -4029,7 +3931,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 28 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4095,7 +3997,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(29);
+var	fixUrls = __webpack_require__(19);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -4411,7 +4313,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 29 */
+/* 19 */
 /***/ (function(module, exports) {
 
 
