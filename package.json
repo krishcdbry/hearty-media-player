@@ -1,6 +1,6 @@
 {
   "name": "hearty-media-player",
-  "version": "0.0.11",
+  "version": "0.0.15",
   "description": "A React media component which is provides video player with custom video controls, Which can play videos by receviing URLs as input. ",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build-live": "webpack --progress -w",
     "build-main": "webpack --progress",
     "build-demo": "webpack --config webpack.demo.config.js --progress",
-    "build-prod": "set NODE_ENV=production && webpack --progress && webpack --config webpack.demo.config.js --progress -p",
+    "build-prod": "set NODE_ENV=production && webpack --config webpack.config.js --progress && webpack --config webpack.demo.config.js --progress -p",
     "build": "npm run build-main && npm run build-demo -w"
   },
   "author": "krishcdbry",

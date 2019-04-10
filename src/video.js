@@ -79,6 +79,7 @@ class HeartyMediaPlayer extends React.Component {
         }
 
         this.video = null;
+        this.source = null;
     }
 
     /**
@@ -87,7 +88,7 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _loadVideo() {
-        let {onVideoLoad} = this.props;
+        let {onLoadVideo, onErrorVideo} = this.props;
 
         if (!this.state.sourceElem && this.video) {
             this.setState({
@@ -95,8 +96,9 @@ class HeartyMediaPlayer extends React.Component {
             });
             
             this.video.load();
-            if (onVideoLoad) {
-                onVideoLoad(this.video);
+
+            if (onLoadVideo) {
+                onLoadVideo(this.video);
             }
 
             if (this.state.muted) {
@@ -133,6 +135,14 @@ class HeartyMediaPlayer extends React.Component {
             this._onEnded();
         }
 
+        console.log(this.source);
+
+        setTimeout(() => {
+            this.source.onerror = () => {
+                this.props.onErrorVideo();
+            }
+        }, 100);
+    
         if (onStartVideo) {
             onStartVideo(this.video);
         }
@@ -188,7 +198,7 @@ class HeartyMediaPlayer extends React.Component {
             replay: true
         })
         if (onEndVideo) {
-            onEndVideo(this.video);
+            onEndVideo();
         }
 
         if (typeof this.video.loop != 'boolean' && this.state.loop) {
@@ -453,6 +463,10 @@ class HeartyMediaPlayer extends React.Component {
             this._play();
         }
 
+        if(this.props.onRef) {
+            this.props.onRef(this);
+        }
+
         let exitHandler = this._exitHandler.bind(this);
         document.addEventListener('webkitfullscreenchange', exitHandler, false);
         document.addEventListener('mozfullscreenchange', exitHandler, false);
@@ -471,6 +485,10 @@ class HeartyMediaPlayer extends React.Component {
         document.removeEventListener('mozfullscreenchange', exitHandler, false);
         document.removeEventListener('fullscreenchange', exitHandler, false);
         document.removeEventListener('MSFullscreenChange', exitHandler, false);
+
+        if(this.props.onRef) {
+            this.props.onRef(undefined);
+        }
      }
 
      preareVideoSource() {
@@ -483,7 +501,7 @@ class HeartyMediaPlayer extends React.Component {
 
             if (validVideoTypes.indexOf(type) > -1) {
                 videoType += type;
-                sourceElem = <source src={this.state.src} type={videoType}/>;
+                sourceElem = <source src={this.state.src} type={videoType} ref={(c) => {this.source = c}} />;
             }
         }
         return sourceElem;
@@ -576,6 +594,21 @@ class HeartyMediaPlayer extends React.Component {
             </a>
         ) : '';
 
+        let speedControlOptions = (this.props.allowSpeedControls) ? (
+            <a href="javascript:;" className="control-option playback-rate">
+                <div className="playback-rate-label" onClick={this._showPlaybackOptions.bind(this)}>{playbackRateLabel}</div>
+                <div className={playbackRateOptionsClass}>
+                    <span className="options-title">Speed</span>
+                    <ul>
+                        <li> <span onClick={() => this._setupPlaybackRate(0.25)}>0.25x</span> </li>
+                        <li> <span onClick={() => this._setupPlaybackRate(0.5)}>0.5x</span> </li>
+                        <li> <span onClick={() => this._setupPlaybackRate(1)}>1x</span> </li>
+                        <li> <span onClick={() => this._setupPlaybackRate(2)}>2x</span> </li>
+                    </ul>
+                </div>
+            </a>
+        ) : '';
+
         return (
             <div className={heartyMediaPlayerClass} 
                  id={heartyMediaPlayerId}
@@ -604,18 +637,7 @@ class HeartyMediaPlayer extends React.Component {
                                 </a>
                             </div>
                             <div className="video-controls-section section-one">
-                                <a href="javascript:;" className="control-option playback-rate">
-                                    <div className="playback-rate-label" onClick={this._showPlaybackOptions.bind(this)}>{playbackRateLabel}</div>
-                                    <div className={playbackRateOptionsClass}>
-                                        <span className="options-title">Speed</span>
-                                        <ul>
-                                            <li> <span onClick={() => this._setupPlaybackRate(0.25)}>0.25x</span> </li>
-                                            <li> <span onClick={() => this._setupPlaybackRate(0.5)}>0.5x</span> </li>
-                                            <li> <span onClick={() => this._setupPlaybackRate(1)}>1x</span> </li>
-                                            <li> <span onClick={() => this._setupPlaybackRate(2)}>2x</span> </li>
-                                        </ul>
-                                    </div>
-                                </a>
+                                {speedControlOptions}
                                 <a href="javascript:;" className="control-option volume">
                                     <div onClick={() => this._setupVolume(1)} className={volumeClassOne}></div>
                                     <div onClick={() => this._setupVolume(2)} className={volumeClassTwo}></div>

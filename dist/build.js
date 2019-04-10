@@ -556,7 +556,7 @@ var HeartyMediaPlayer = function (_React$Component) {
     _createClass(HeartyMediaPlayer, [{
         key: '_loadVideo',
         value: function _loadVideo() {
-            var onVideoLoad = this.props.onVideoLoad;
+            var onLoadVideo = this.props.onLoadVideo;
 
 
             if (!this.state.sourceElem && this.video) {
@@ -565,8 +565,8 @@ var HeartyMediaPlayer = function (_React$Component) {
                 });
 
                 this.video.load();
-                if (onVideoLoad) {
-                    onVideoLoad(this.video);
+                if (onLoadVideo) {
+                    onLoadVideo(this.video);
                 }
 
                 if (this.state.muted) {
@@ -2923,7 +2923,7 @@ var propTypes = {
     allowFixedTop: _propTypes2.default.bool, // Flag to show/allow video popped top of the window
     allowSpeedControls: _propTypes2.default.bool, // Flag to change playback rate of the video
 
-    onVideoLoad: _propTypes2.default.func, // A function that runs when video loads and returns video element
+    onLoadVideo: _propTypes2.default.func, // A function that runs when video loads and returns video element
     onStartVideo: _propTypes2.default.func, // A function that runs when video starts playing and returns video element
     onEndVideo: _propTypes2.default.func, // A function that runs when video completed and returns video element
     onPauseVideo: _propTypes2.default.func, // A function that runs when video paused and returns video element

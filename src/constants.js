@@ -17,10 +17,11 @@ const propTypes = {
     allowFixedTop : PropTypes.bool,            // Flag to show/allow video popped top of the window
     allowSpeedControls : PropTypes.bool,       // Flag to change playback rate of the video
 
-    onVideoLoad : PropTypes.func,              // A function that runs when video loads and returns video element
+    onLoadVideo : PropTypes.func,              // A function that runs when video loads and returns video element
     onStartVideo : PropTypes.func,             // A function that runs when video starts playing and returns video element
     onEndVideo : PropTypes.func,               // A function that runs when video completed and returns video element
     onPauseVideo : PropTypes.func,             // A function that runs when video paused and returns video element
+    onErrorVideo : PropTypes.func,             // A function that runs when video source error and returns video element
     onForwardVideo : PropTypes.func,           // A function that runs when video forwaded and returns video element
     onBackwardVideo : PropTypes.func,          // A function that runs when video backwarded and returns video element
     onSpeedChange : PropTypes.func,            // A function that runs when video playback speed changes and returns video element
@@ -29,6 +30,7 @@ const propTypes = {
     onVideoExitFixedTop : PropTypes.func,      // A function that runs when video exits from fixed top of window and returns video element
     onFullScreen : PropTypes.func,             // A function that runs when video enters fullscreen mode and returns video element
     onExitFullScreen : PropTypes.func,         // A function that runs when video exists fullscreen mode and returns video element
+    onRef : PropTypes.func,                    // A function that runs when this
 
     style : PropTypes.object                   // Styling player component
    

@@ -7,7 +7,7 @@ class App extends React.Component {
         super(context, props);
     }
 
-    onVideoLoadCallback (video) {
+    onLoadVideoCallback (video) {
         // video - video element returned from HeartyMediaPlayer
         console.log("Video Loaded", video);
     }
@@ -120,7 +120,7 @@ class App extends React.Component {
                             allowBackward={true}
                             allowFixedTop={true}
                             allowSpeedControls={true}
-                            onLoadVideo={this.onVideoLoadCallback.bind(this)}
+                            onLoadVideo={this.onLoadVideoCallback.bind(this)}
                             onStartVideo={this.onStartVideoCallback.bind(this)}
                             onPauseVideo={this.onPauseVideoCallback.bind(this)}
                             onEndVideo={this.onEndVideoCallback.bind(this)}
