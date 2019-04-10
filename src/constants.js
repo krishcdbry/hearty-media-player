@@ -17,6 +17,8 @@ const propTypes = {
     allowFixedTop : PropTypes.bool,            // Flag to show/allow video popped top of the window
     allowSpeedControls : PropTypes.bool,       // Flag to change playback rate of the video
 
+    isBodyFullScreen : PropTypes.bool,         // Flag to make complete body fullscreen when cliks on fullsreen mode option
+
     onLoadVideo : PropTypes.func,              // A function that runs when video loads and returns video element
     onStartVideo : PropTypes.func,             // A function that runs when video starts playing and returns video element
     onEndVideo : PropTypes.func,               // A function that runs when video completed and returns video element

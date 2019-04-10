@@ -51,6 +51,7 @@ Name         | Required | Type   | Description |
 `poster`     | No       | string | Url to the poster image to be shown before video plays
 
 
+
 ## Functional Props
 
 Name          | Required | Type    | Description |
@@ -59,6 +60,7 @@ Name          | Required | Type    | Description |
 `autoplay`    | No       | boolean | Determines weather the video loads & plays by default
 `muted`       | No       | boolean | Determines weather the video is muted completely
 `loop`        | No       | boolean | Determines weather the video should be looped
+
 
 
 ## Control Props
@@ -70,6 +72,7 @@ Name                 | Required | Type    | Description |
 `allowBackward`      | No       | boolean | Flag to show/allow backward video
 `allowFixedTop`      | No       | boolean | Flag to show/allow video popped top of the window
 `allowSpeedControls` | No       | boolean | Flag to change playback rate of the video
+`isBodyFullScreen`   | No       | boolean | Flag to make body fullscreen when user goes for fullscreen option
 
 
 
@@ -77,10 +80,11 @@ Name                 | Required | Type    | Description |
 
 Name                  | Required | Type       | Description |
 ----------------------|----------|------------|--------------
-`onVideoLoad`         | No       | function   | A function that runs when video loads and returns video element * `onVideoLoad(video)` -  `video` - This is the video element passed back from hearty media player.  
+`onLoadVideo`         | No       | function   | A function that runs when video loads and returns video element * `onLoadVideo(video)` -  `video` - This is the video element passed back from hearty media player.  
 `onStartVideo`        | No       | function   | A function that runs when video starts playing and returns video element * `onStartVideo(video)` -  `video` - This is the video element passed back from hearty media player. 
 `onEndVideo`          | No       | function   | A function that runs when video completed and returns video element * `onEndVideo(video)` -  `video` - This is the video element passed back from hearty media player. 
 `onPauseVideo`        | No       | function   | A function that runs when video paused and returns video element * `onPauseVideo(video)` -  `video` - This is the video element passed back from hearty media player. 
+`onErrorVideo`        | No       | function   | A function that runs when source throws an error and returns callback
 `onForwardVideo`      | No       | function   | A function that runs when video forwaded and returns video element * `onForwardVideo(video)` -  `video` - This is the video element passed back from hearty media player. 
 `onBackwardVideo`     | No       | function   | A function that runs when video backwarded and returns video element * `onBackwardVideo(video)` -  `video` - This is the video element passed back from hearty media player. 
 `onSpeedChange`       | No       | function   | A function that runs when video playback speed changes and returns video element * `onSpeedChange(video)` -  `video` - This is the video element passed back from hearty media player. 
@@ -177,7 +181,7 @@ class App extends React.Component {
         super(context, props);
     }
 
-    onVideoLoadCallback (video) {
+    onLoadVideoCallback (video) {
         // video - video element returned from HeartyMediaPlayer
         console.log("Video Loaded", video);
     }
@@ -258,7 +262,7 @@ class App extends React.Component {
                         allowBackward={true}
                         allowFixedTop={true}
                         allowSpeedControls={true}
-                        onLoadVideo={this.onVideoLoadCallback.bind(this)}
+                        onLoadVideo={this.onLoadVideoCallback.bind(this)}
                         onStartVideo={this.onStartVideoCallback.bind(this)}
                         onPauseVideo={this.onPauseVideoCallback.bind(this)}
                         onEndVideo={this.onEndVideoCallback.bind(this)}

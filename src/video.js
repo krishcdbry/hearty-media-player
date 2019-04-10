@@ -58,7 +58,7 @@ class HeartyMediaPlayer extends React.Component {
         
         this.state = {
             src : src,
-            id : id || null,
+            id : id || generateRandomId(),
             className: className || null,
             sourceElem : null,
             preload : preload,
@@ -377,17 +377,19 @@ class HeartyMediaPlayer extends React.Component {
             !document.webkitFullscreenElement && 
             !document.msFullscreenElement ) {  // current working methods
 
-                if (this.video.requestFullscreen) {
-                    this.video.requestFullscreen();
+                let videoElement =  (this.props.isBodyFullScreen) ? document.body : document.getElementById(this.state.id)
+
+                if (videoElement.requestFullscreen) {
+                    videoElement.requestFullscreen();
                 }
-                else if (this.video.msRequestFullscreen) {
-                    this.video.msRequestFullscreen();
+                else if (videoElement.msRequestFullscreen) {
+                    videoElement.msRequestFullscreen();
                 }
-                else if (this.video.mozRequestFullScreen) {
-                    this.video.mozRequestFullScreen();
+                else if (videoElement.mozRequestFullScreen) {
+                    videoElement.mozRequestFullScreen();
                 }
-                else if (this.video.webkitRequestFullScreen) {
-                    this.video.webkitRequestFullScreen();
+                else if (videoElement.webkitRequestFullScreen) {
+                    videoElement.webkitRequestFullScreen();
                 }
 
                 this.setState({
@@ -534,7 +536,9 @@ class HeartyMediaPlayer extends React.Component {
             }
         }
 
-        let videoControlsClassName = (this.state.fullScreen) ? 'video-controls fullscreen-mode' : 'video-controls';
+       // let videoControlsClassName = (this.state.fullScreen) ? 'video-controls fullscreen-mode' : 'video-controls';
+
+        let videoControlsClassName = 'video-controls';
        
         let videoControlsWrappersClass = 'video-controls-wrapper';
         if (!this.state.mouseOver) {
@@ -562,7 +566,11 @@ class HeartyMediaPlayer extends React.Component {
             heartyMediaPlayerClass += ' '+this.state.className;
         } 
 
-        let heartyMediaPlayerId = this.state.id || generateRandomId();
+        if(this.state.fullScreen) {
+            heartyMediaPlayerClass += ' fullscreen';
+        }
+
+        let heartyMediaPlayerId = this.state.id;
 
         let fixedTopIcon = (this.state.fixedTop) ? fixedRemove : fixedTop;
        
@@ -600,9 +608,9 @@ class HeartyMediaPlayer extends React.Component {
                 <div className={playbackRateOptionsClass}>
                     <span className="options-title">Speed</span>
                     <ul>
-                        <li> <span onClick={() => this._setupPlaybackRate(0.25)}>0.25x</span> </li>
                         <li> <span onClick={() => this._setupPlaybackRate(0.5)}>0.5x</span> </li>
                         <li> <span onClick={() => this._setupPlaybackRate(1)}>1x</span> </li>
+                        <li> <span onClick={() => this._setupPlaybackRate(1.25)}>1.25x</span> </li>
                         <li> <span onClick={() => this._setupPlaybackRate(2)}>2x</span> </li>
                     </ul>
                 </div>
