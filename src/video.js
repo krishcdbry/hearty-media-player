@@ -93,6 +93,12 @@ class HeartyMediaPlayer extends React.Component {
         if (!this.state.sourceElem && this.video) {
             this.setState({
                 sourceElem : this.preareVideoSource()
+            }, () => {
+                setTimeout(() => {
+                    this.source.onerror = () => {
+                        onErrorVideo();
+                    }
+                }, 100);
             });
             
             this.video.load();
@@ -117,15 +123,23 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _play() {
-        let {onStartVideo} = this.props;
+        let {onStartVideo, onErrorVideo} = this.props;
         this._loadVideo();
         this.video.play();
-        this.setState({
-            playing : true,
-            replay : false,
-            started : true,
-            showPlaybackOptions: false
-        });
+        
+        this.video.onplaying = () => {
+
+            this.setState({
+                playing : true,
+                replay : false,
+                started : true,
+                showPlaybackOptions: false
+            });
+
+            if (onStartVideo) {
+                onStartVideo(this.video);
+            }
+        }
 
         this.video.ontimeupdate = () => {
             this._onPlaying();
@@ -134,18 +148,7 @@ class HeartyMediaPlayer extends React.Component {
         this.video.onended = () => {
             this._onEnded();
         }
-
-        console.log(this.source);
-
-        setTimeout(() => {
-            this.source.onerror = () => {
-                this.props.onErrorVideo();
-            }
-        }, 100);
-    
-        if (onStartVideo) {
-            onStartVideo(this.video);
-        }
+       
     }
 
     /**

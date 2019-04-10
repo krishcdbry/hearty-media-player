@@ -595,6 +595,8 @@ var HeartyMediaPlayer = function (_React$Component) {
     _createClass(HeartyMediaPlayer, [{
         key: '_loadVideo',
         value: function _loadVideo() {
+            var _this2 = this;
+
             var _props = this.props,
                 onLoadVideo = _props.onLoadVideo,
                 onErrorVideo = _props.onErrorVideo;
@@ -603,6 +605,12 @@ var HeartyMediaPlayer = function (_React$Component) {
             if (!this.state.sourceElem && this.video) {
                 this.setState({
                     sourceElem: this.preareVideoSource()
+                }, function () {
+                    setTimeout(function () {
+                        _this2.source.onerror = function () {
+                            onErrorVideo();
+                        };
+                    }, 100);
                 });
 
                 this.video.load();
@@ -630,38 +638,36 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_play',
         value: function _play() {
-            var _this2 = this;
+            var _this3 = this;
 
-            var onStartVideo = this.props.onStartVideo;
+            var _props2 = this.props,
+                onStartVideo = _props2.onStartVideo,
+                onErrorVideo = _props2.onErrorVideo;
 
             this._loadVideo();
             this.video.play();
-            this.setState({
-                playing: true,
-                replay: false,
-                started: true,
-                showPlaybackOptions: false
-            });
+
+            this.video.onplaying = function () {
+
+                _this3.setState({
+                    playing: true,
+                    replay: false,
+                    started: true,
+                    showPlaybackOptions: false
+                });
+
+                if (onStartVideo) {
+                    onStartVideo(_this3.video);
+                }
+            };
 
             this.video.ontimeupdate = function () {
-                _this2._onPlaying();
+                _this3._onPlaying();
             };
 
             this.video.onended = function () {
-                _this2._onEnded();
+                _this3._onEnded();
             };
-
-            console.log(this.source);
-
-            setTimeout(function () {
-                _this2.source.onerror = function () {
-                    _this2.props.onErrorVideo();
-                };
-            }, 100);
-
-            if (onStartVideo) {
-                onStartVideo(this.video);
-            }
         }
 
         /**
@@ -872,9 +878,9 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_fixVideoTop',
         value: function _fixVideoTop() {
-            var _props2 = this.props,
-                onVideoFixedTop = _props2.onVideoFixedTop,
-                onVideoExitFixedTop = _props2.onVideoExitFixedTop;
+            var _props3 = this.props,
+                onVideoFixedTop = _props3.onVideoFixedTop,
+                onVideoExitFixedTop = _props3.onVideoExitFixedTop;
 
             this.setState({
                 fixedTop: !this.state.fixedTop
@@ -1087,7 +1093,7 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: 'preareVideoSource',
         value: function preareVideoSource() {
-            var _this3 = this;
+            var _this4 = this;
 
             var sourceElem = '';
             if (this.state.src) {
@@ -1099,7 +1105,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                 if (_constants.validVideoTypes.indexOf(type) > -1) {
                     videoType += type;
                     sourceElem = _react2.default.createElement('source', { src: this.state.src, type: videoType, ref: function ref(c) {
-                            _this3.source = c;
+                            _this4.source = c;
                         } });
                 }
             }
@@ -1111,7 +1117,7 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             var playPauseElem = _react2.default.createElement('img', { src: _play3.default });
             var playPauseFun = this._play.bind(this);
@@ -1227,7 +1233,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { onClick: function onClick() {
-                                        return _this4._setupPlaybackRate(0.5);
+                                        return _this5._setupPlaybackRate(0.5);
                                     } },
                                 '0.5x'
                             ),
@@ -1240,7 +1246,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { onClick: function onClick() {
-                                        return _this4._setupPlaybackRate(1);
+                                        return _this5._setupPlaybackRate(1);
                                     } },
                                 '1x'
                             ),
@@ -1253,7 +1259,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { onClick: function onClick() {
-                                        return _this4._setupPlaybackRate(1.25);
+                                        return _this5._setupPlaybackRate(1.25);
                                     } },
                                 '1.25x'
                             ),
@@ -1266,7 +1272,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                             _react2.default.createElement(
                                 'span',
                                 { onClick: function onClick() {
-                                        return _this4._setupPlaybackRate(2);
+                                        return _this5._setupPlaybackRate(2);
                                     } },
                                 '2x'
                             ),
@@ -1306,23 +1312,23 @@ var HeartyMediaPlayer = function (_React$Component) {
                             'a',
                             { href: 'javascript:;', className: 'control-option volume' },
                             _react2.default.createElement('div', { onClick: function onClick() {
-                                    return _this4._setupVolume(1);
+                                    return _this5._setupVolume(1);
                                 }, className: volumeClassOne }),
                             _react2.default.createElement('div', { onClick: function onClick() {
-                                    return _this4._setupVolume(2);
+                                    return _this5._setupVolume(2);
                                 }, className: volumeClassTwo }),
                             _react2.default.createElement(
                                 'div',
                                 { onClick: function onClick() {
-                                        return _this4._setupVolume(3);
+                                        return _this5._setupVolume(3);
                                     }, className: volumeClassThree },
                                 ' '
                             ),
                             _react2.default.createElement('div', { onClick: function onClick() {
-                                    return _this4._setupVolume(4);
+                                    return _this5._setupVolume(4);
                                 }, className: volumeClassFour }),
                             _react2.default.createElement('div', { onClick: function onClick() {
-                                    return _this4._setupVolume(5);
+                                    return _this5._setupVolume(5);
                                 }, className: volumeClassFive })
                         ),
                         fixedTopOption,
@@ -1333,7 +1339,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                     'div',
                     { className: 'video-progress-tracker',
                         ref: function ref(c) {
-                            _this4.videoprogress = c;
+                            _this5.videoprogress = c;
                         } },
                     _react2.default.createElement(
                         'div',
@@ -1366,10 +1372,10 @@ var HeartyMediaPlayer = function (_React$Component) {
                     id: heartyMediaPlayerId,
                     style: heartyMediaPlayerClassStyle,
                     onMouseOut: function onMouseOut() {
-                        return _this4._mouseOut();
+                        return _this5._mouseOut();
                     },
                     onMouseOver: function onMouseOver() {
-                        return _this4._mouseOver();
+                        return _this5._mouseOver();
                     } },
                 _react2.default.createElement(
                     'div',
@@ -1387,7 +1393,7 @@ var HeartyMediaPlayer = function (_React$Component) {
                         'video',
                         {
                             ref: function ref(c) {
-                                _this4.video = c;
+                                _this5.video = c;
                             },
                             onClick: playPauseFun, controls: IOS },
                         this.state.sourceElem
