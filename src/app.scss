@@ -181,6 +181,10 @@
                         &.playback-rate {
                             width: 50px;
 
+                            @media (max-width: 780px) {
+                                width: 35px;
+                            }
+
                             .playback-rate-label {
                                 color: #fff;
                                 font-size: 11px;
@@ -252,6 +256,7 @@
                         &.volume {
                             align-items: baseline;
                             padding: 1px 0px;
+                            margin-left: 8px;
 
                             div {
                                 width: 3px;

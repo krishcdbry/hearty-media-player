@@ -1,6 +1,6 @@
 {
   "name": "hearty-media-player",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "description": "A React media component which is provides video player with custom video controls, Which can play videos by receviing URLs as input. ",
   "main": "dist/index.js",
   "scripts": {

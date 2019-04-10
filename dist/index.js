@@ -788,6 +788,24 @@ var HeartyMediaPlayer = function (_React$Component) {
     }, {
         key: '_setupVolume',
         value: function _setupVolume(range) {
+            var volume = this.state.volume;
+
+
+            if (window.innerWidth < 780) {
+                if (volume > 0) {
+                    volume = 0;
+                } else {
+                    volume = 5;
+                }
+
+                this.setState({
+                    volume: volume
+                });
+
+                this.video.volume = volume > 1 ? 1 : 0;
+                return;
+            }
+
             var onVolumeChange = this.props.onVolumeChange;
 
             if (this.state.muted) {
@@ -1119,8 +1137,6 @@ var HeartyMediaPlayer = function (_React$Component) {
                 };
             }
 
-            // let videoControlsClassName = (this.state.fullScreen) ? 'video-controls fullscreen-mode' : 'video-controls';
-
             var videoControlsClassName = 'video-controls';
 
             var videoControlsWrappersClass = 'video-controls-wrapper';
@@ -1260,6 +1276,90 @@ var HeartyMediaPlayer = function (_React$Component) {
                 )
             ) : '';
 
+            var videoControlsComponent = _react2.default.createElement(
+                'div',
+                { className: videoControlsClassName },
+                _react2.default.createElement(
+                    'div',
+                    { className: videoControlsWrappersClass },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'video-controls-section section-one' },
+                        _react2.default.createElement(
+                            'a',
+                            { href: 'javascript:;', className: 'control-option', onClick: playPauseFun },
+                            playPauseElem
+                        ),
+                        backwardOption,
+                        forwardOption,
+                        _react2.default.createElement(
+                            'a',
+                            { href: 'javascript:;', className: 'control-option video-time-info' },
+                            videoTimeInfo
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'video-controls-section section-one' },
+                        speedControlOptions,
+                        _react2.default.createElement(
+                            'a',
+                            { href: 'javascript:;', className: 'control-option volume' },
+                            _react2.default.createElement('div', { onClick: function onClick() {
+                                    return _this4._setupVolume(1);
+                                }, className: volumeClassOne }),
+                            _react2.default.createElement('div', { onClick: function onClick() {
+                                    return _this4._setupVolume(2);
+                                }, className: volumeClassTwo }),
+                            _react2.default.createElement(
+                                'div',
+                                { onClick: function onClick() {
+                                        return _this4._setupVolume(3);
+                                    }, className: volumeClassThree },
+                                ' '
+                            ),
+                            _react2.default.createElement('div', { onClick: function onClick() {
+                                    return _this4._setupVolume(4);
+                                }, className: volumeClassFour }),
+                            _react2.default.createElement('div', { onClick: function onClick() {
+                                    return _this4._setupVolume(5);
+                                }, className: volumeClassFive })
+                        ),
+                        fixedTopOption,
+                        fullScreenOption
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'video-progress-tracker',
+                        ref: function ref(c) {
+                            _this4.videoprogress = c;
+                        } },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'progress-elem' },
+                        _react2.default.createElement(_prettyProgressbar2.default, {
+                            percentage: this.state.progress,
+                            progressbarStyle: _constants.progressbarStyle,
+                            progressStyle: _constants.progressStyle,
+                            type: 'default' })
+                    ),
+                    _react2.default.createElement('input', { type: 'range',
+                        min: '1',
+                        max: '100',
+                        value: this.state.progress,
+                        onChange: this._progressRangeHandler.bind(this),
+                        className: 'progressRange slider',
+                        id: 'progressRange' })
+                )
+            );
+
+            var IOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+            if (IOS) {
+                videoControlsComponent = null;
+            }
+
             return _react2.default.createElement(
                 'div',
                 { className: heartyMediaPlayerClass,
@@ -1289,86 +1389,10 @@ var HeartyMediaPlayer = function (_React$Component) {
                             ref: function ref(c) {
                                 _this4.video = c;
                             },
-                            onClick: playPauseFun },
+                            onClick: playPauseFun, controls: IOS },
                         this.state.sourceElem
                     ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: videoControlsClassName },
-                        _react2.default.createElement(
-                            'div',
-                            { className: videoControlsWrappersClass },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'video-controls-section section-one' },
-                                _react2.default.createElement(
-                                    'a',
-                                    { href: 'javascript:;', className: 'control-option', onClick: playPauseFun },
-                                    playPauseElem
-                                ),
-                                backwardOption,
-                                forwardOption,
-                                _react2.default.createElement(
-                                    'a',
-                                    { href: 'javascript:;', className: 'control-option video-time-info' },
-                                    videoTimeInfo
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'video-controls-section section-one' },
-                                speedControlOptions,
-                                _react2.default.createElement(
-                                    'a',
-                                    { href: 'javascript:;', className: 'control-option volume' },
-                                    _react2.default.createElement('div', { onClick: function onClick() {
-                                            return _this4._setupVolume(1);
-                                        }, className: volumeClassOne }),
-                                    _react2.default.createElement('div', { onClick: function onClick() {
-                                            return _this4._setupVolume(2);
-                                        }, className: volumeClassTwo }),
-                                    _react2.default.createElement(
-                                        'div',
-                                        { onClick: function onClick() {
-                                                return _this4._setupVolume(3);
-                                            }, className: volumeClassThree },
-                                        ' '
-                                    ),
-                                    _react2.default.createElement('div', { onClick: function onClick() {
-                                            return _this4._setupVolume(4);
-                                        }, className: volumeClassFour }),
-                                    _react2.default.createElement('div', { onClick: function onClick() {
-                                            return _this4._setupVolume(5);
-                                        }, className: volumeClassFive })
-                                ),
-                                fixedTopOption,
-                                fullScreenOption
-                            )
-                        ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'video-progress-tracker',
-                                ref: function ref(c) {
-                                    _this4.videoprogress = c;
-                                } },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'progress-elem' },
-                                _react2.default.createElement(_prettyProgressbar2.default, {
-                                    percentage: this.state.progress,
-                                    progressbarStyle: _constants.progressbarStyle,
-                                    progressStyle: _constants.progressStyle,
-                                    type: 'default' })
-                            ),
-                            _react2.default.createElement('input', { type: 'range',
-                                min: '1',
-                                max: '100',
-                                value: this.state.progress,
-                                onChange: this._progressRangeHandler.bind(this),
-                                className: 'progressRange slider',
-                                id: 'progressRange' })
-                        )
-                    )
+                    videoControlsComponent
                 )
             );
         }
@@ -3979,7 +4003,7 @@ exports = module.exports = __webpack_require__(27)(false);
 
 
 // module
-exports.push([module.i, ".hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n  -webkit-transition: all 1s ease 0s;\n  -moz-transition: all 1s ease 0s;\n  -ms-transition: all 1s ease 0s;\n  -o-transition: all 1s ease 0s;\n  transition: all 1s ease 0s; }\n  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img:hover, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label:hover {\n    transform: scale(1.1); }\n\n.hearty-media-player .video-wrapper .video-curtain, .hearty-media-player .video-wrapper video {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%; }\n\n.show {\n  display: block !important; }\n\n.hide {\n  display: none !important; }\n\n.visible {\n  opacity: 1 !important; }\n\n.hidden {\n  opacity: 0 !important; }\n\n.hearty-media-player.fixed {\n  width: 75vw;\n  position: fixed;\n  z-index: 9999999;\n  top: 0;\n  left: 50%;\n  margin: 0px auto;\n  transform: translate(-50%, 0%); }\n\n.hearty-media-player.fullscreen .video-wrapper {\n  padding-top: 0px; }\n\n.hearty-media-player .video-wrapper {\n  position: relative;\n  width: inherit;\n  height: 100%;\n  width: 100%;\n  padding-top: 56.25%;\n  background: #000; }\n  .hearty-media-player .video-wrapper .video-curtain {\n    z-index: 5;\n    display: none;\n    background-size: cover !important;\n    background-repeat: no-repeat !important;\n    background-position: 50% !important; }\n    .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon {\n      background: rgba(0, 0, 0, 0.5);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      height: 100%; }\n      .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon img {\n        font-size: 32px; }\n  .hearty-media-player .video-wrapper video:-webkit-full-screen {\n    width: 100%;\n    height: 100%; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls {\n    display: none !important; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls-enclosure {\n    display: none !important; }\n  .hearty-media-player .video-wrapper .video-controls {\n    position: absolute;\n    bottom: -1px;\n    height: auto;\n    width: 100%;\n    z-index: 6; }\n    .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n      width: 100%;\n      display: inline-flex;\n      align-items: center;\n      flex-wrap: nowrap;\n      padding: 15px 0px;\n      justify-content: space-between;\n      background: rgba(0, 0, 0, 0.3); }\n      @media (max-width: 780px) {\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n          padding: 11px 0px; } }\n      .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section {\n        display: inline-flex;\n        align-items: center; }\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n          width: 60px;\n          display: flex;\n          justify-content: center;\n          height: 100%;\n          text-decoration: none !important; }\n          @media (max-width: 780px) {\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n              width: 35px; } }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.video-time-info {\n            font-size: 11px;\n            color: #fff;\n            text-shadow: 0px 1px 2px #000;\n            width: auto; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n            height: 20px;\n            vertical-align: middle;\n            filter: drop-shadow(1px 2px 6px #000);\n            -webkit-filter: drop-shadow(1px 2px 6px #000); }\n            @media (max-width: 780px) {\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n                height: 14px; } }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate {\n            width: 50px; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n              color: #fff;\n              font-size: 11px;\n              background: transparent;\n              padding: 4px 0px;\n              width: 40px;\n              border: 1px solid #f0f0f0;\n              text-align: center;\n              text-transform: lowercase;\n              border-radius: 2px;\n              box-shadow: 0px 1px 1px #000; }\n              @media (max-width: 780px) {\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n                  font-size: 9px;\n                  padding: 2px 2px;\n                  width: 40px; } }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options {\n              position: absolute;\n              height: auto;\n              bottom: 32px;\n              background: #fff;\n              color: #000;\n              font-size: 12px;\n              text-align: center;\n              display: none;\n              border-radius: 2px;\n              box-shadow: 0px 1px 1px #000; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options.show {\n                display: block; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options .options-title {\n                color: #fff;\n                font-size: 14px;\n                padding: 5px 0px;\n                display: block;\n                background: limegreen;\n                color: #fff;\n                font-size: 12px;\n                border-radius: 2px 2px 0px 0px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul {\n                margin: 0;\n                text-align: left;\n                list-style: none;\n                padding: 0; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span {\n                  padding: 7px 7px;\n                  display: block; }\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span:hover {\n                    background: #f0f0f0;\n                    color: #22a0ce; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume {\n            align-items: baseline;\n            padding: 1px 0px; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n              width: 3px;\n              height: 5px;\n              margin: 1px;\n              background: #999;\n              box-shadow: 0px 1px 1px #000; }\n              @media (max-width: 780px) {\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n                  height: 3px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div.fill {\n                background: #ddd; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                height: 8px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                    height: 6px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                height: 11px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                    height: 8px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                height: 14px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                    height: 10px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                height: 17px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                    height: 12px; } }\n    .hearty-media-player .video-wrapper .video-controls.fullscreen-mode {\n      position: fixed;\n      bottom: 0;\n      left: 0;\n      z-index: 2147483647; }\n      .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper {\n        padding: 18px 0px; }\n        .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option {\n          width: 39px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-label {\n            font-size: 11px;\n            width: 30px;\n            padding: 4px 2px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-options {\n            bottom: 42px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.fixed-top {\n            display: none; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.video-time-info {\n            font-size: 14px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option img {\n            height: 19px; }\n    .hearty-media-player .video-wrapper .video-controls .video-progress-tracker {\n      position: relative;\n      margin-right: 6px;\n      width: 100%; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker .progress-elem {\n        position: absolute;\n        width: 100%;\n        top: -5px;\n        z-index: 0; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange {\n        position: absolute;\n        width: 100%;\n        top: -9px;\n        z-index: 5;\n        -webkit-appearance: none;\n        width: 100%;\n        height: 14px;\n        outline: none;\n        opacity: 0.7;\n        -webkit-transition: .2s;\n        transition: opacity .2s;\n        background: transparent; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-webkit-slider-thumb {\n          -webkit-appearance: none;\n          appearance: none;\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-moz-range-thumb {\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n", ""]);
+exports.push([module.i, ".hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n  -webkit-transition: all 1s ease 0s;\n  -moz-transition: all 1s ease 0s;\n  -ms-transition: all 1s ease 0s;\n  -o-transition: all 1s ease 0s;\n  transition: all 1s ease 0s; }\n  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img:hover, .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label:hover {\n    transform: scale(1.1); }\n\n.hearty-media-player .video-wrapper .video-curtain, .hearty-media-player .video-wrapper video {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  width: 100%;\n  height: 100%; }\n\n.show {\n  display: block !important; }\n\n.hide {\n  display: none !important; }\n\n.visible {\n  opacity: 1 !important; }\n\n.hidden {\n  opacity: 0 !important; }\n\n.hearty-media-player.fixed {\n  width: 75vw;\n  position: fixed;\n  z-index: 9999999;\n  top: 0;\n  left: 50%;\n  margin: 0px auto;\n  transform: translate(-50%, 0%); }\n\n.hearty-media-player.fullscreen .video-wrapper {\n  padding-top: 0px; }\n\n.hearty-media-player .video-wrapper {\n  position: relative;\n  width: inherit;\n  height: 100%;\n  width: 100%;\n  padding-top: 56.25%;\n  background: #000; }\n  .hearty-media-player .video-wrapper .video-curtain {\n    z-index: 5;\n    display: none;\n    background-size: cover !important;\n    background-repeat: no-repeat !important;\n    background-position: 50% !important; }\n    .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon {\n      background: rgba(0, 0, 0, 0.5);\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      width: 100%;\n      height: 100%; }\n      .hearty-media-player .video-wrapper .video-curtain .video-curtain-icon img {\n        font-size: 32px; }\n  .hearty-media-player .video-wrapper video:-webkit-full-screen {\n    width: 100%;\n    height: 100%; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls {\n    display: none !important; }\n  .hearty-media-player .video-wrapper video::-webkit-media-controls-enclosure {\n    display: none !important; }\n  .hearty-media-player .video-wrapper .video-controls {\n    position: absolute;\n    bottom: -1px;\n    height: auto;\n    width: 100%;\n    z-index: 6; }\n    .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n      width: 100%;\n      display: inline-flex;\n      align-items: center;\n      flex-wrap: nowrap;\n      padding: 15px 0px;\n      justify-content: space-between;\n      background: rgba(0, 0, 0, 0.3); }\n      @media (max-width: 780px) {\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper {\n          padding: 11px 0px; } }\n      .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section {\n        display: inline-flex;\n        align-items: center; }\n        .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n          width: 60px;\n          display: flex;\n          justify-content: center;\n          height: 100%;\n          text-decoration: none !important; }\n          @media (max-width: 780px) {\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option {\n              width: 35px; } }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.video-time-info {\n            font-size: 11px;\n            color: #fff;\n            text-shadow: 0px 1px 2px #000;\n            width: auto; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n            height: 20px;\n            vertical-align: middle;\n            filter: drop-shadow(1px 2px 6px #000);\n            -webkit-filter: drop-shadow(1px 2px 6px #000); }\n            @media (max-width: 780px) {\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option img {\n                height: 14px; } }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate {\n            width: 50px; }\n            @media (max-width: 780px) {\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate {\n                width: 35px; } }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n              color: #fff;\n              font-size: 11px;\n              background: transparent;\n              padding: 4px 0px;\n              width: 40px;\n              border: 1px solid #f0f0f0;\n              text-align: center;\n              text-transform: lowercase;\n              border-radius: 2px;\n              box-shadow: 0px 1px 1px #000; }\n              @media (max-width: 780px) {\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-label {\n                  font-size: 9px;\n                  padding: 2px 2px;\n                  width: 40px; } }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options {\n              position: absolute;\n              height: auto;\n              bottom: 32px;\n              background: #fff;\n              color: #000;\n              font-size: 12px;\n              text-align: center;\n              display: none;\n              border-radius: 2px;\n              box-shadow: 0px 1px 1px #000; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options.show {\n                display: block; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options .options-title {\n                color: #fff;\n                font-size: 14px;\n                padding: 5px 0px;\n                display: block;\n                background: limegreen;\n                color: #fff;\n                font-size: 12px;\n                border-radius: 2px 2px 0px 0px; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul {\n                margin: 0;\n                text-align: left;\n                list-style: none;\n                padding: 0; }\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span {\n                  padding: 7px 7px;\n                  display: block; }\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.playback-rate .playback-rate-options ul li span:hover {\n                    background: #f0f0f0;\n                    color: #22a0ce; }\n          .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume {\n            align-items: baseline;\n            padding: 1px 0px;\n            margin-left: 8px; }\n            .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n              width: 3px;\n              height: 5px;\n              margin: 1px;\n              background: #999;\n              box-shadow: 0px 1px 1px #000; }\n              @media (max-width: 780px) {\n                .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div {\n                  height: 3px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div.fill {\n                background: #ddd; }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                height: 8px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(2) {\n                    height: 6px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                height: 11px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(3) {\n                    height: 8px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                height: 14px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(4) {\n                    height: 10px; } }\n              .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                height: 17px; }\n                @media (max-width: 780px) {\n                  .hearty-media-player .video-wrapper .video-controls .video-controls-wrapper .video-controls-section .control-option.volume div:nth-child(5) {\n                    height: 12px; } }\n    .hearty-media-player .video-wrapper .video-controls.fullscreen-mode {\n      position: fixed;\n      bottom: 0;\n      left: 0;\n      z-index: 2147483647; }\n      .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper {\n        padding: 18px 0px; }\n        .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option {\n          width: 39px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-label {\n            font-size: 11px;\n            width: 30px;\n            padding: 4px 2px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.playback-rate .playback-rate-options {\n            bottom: 42px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.fixed-top {\n            display: none; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option.video-time-info {\n            font-size: 14px; }\n          .hearty-media-player .video-wrapper .video-controls.fullscreen-mode .video-controls-wrapper .control-option img {\n            height: 19px; }\n    .hearty-media-player .video-wrapper .video-controls .video-progress-tracker {\n      position: relative;\n      margin-right: 6px;\n      width: 100%; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker .progress-elem {\n        position: absolute;\n        width: 100%;\n        top: -5px;\n        z-index: 0; }\n      .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange {\n        position: absolute;\n        width: 100%;\n        top: -9px;\n        z-index: 5;\n        -webkit-appearance: none;\n        width: 100%;\n        height: 14px;\n        outline: none;\n        opacity: 0.7;\n        -webkit-transition: .2s;\n        transition: opacity .2s;\n        background: transparent; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-webkit-slider-thumb {\n          -webkit-appearance: none;\n          appearance: none;\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n        .hearty-media-player .video-wrapper .video-controls .video-progress-tracker #progressRange::-moz-range-thumb {\n          width: 9px;\n          height: 19px;\n          background: transparent;\n          cursor: pointer; }\n", ""]);
 
 // exports
 

@@ -248,6 +248,25 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _setupVolume(range) {
+        let {volume} = this.state;
+
+        if (window.innerWidth < 780) {
+            if (volume > 0) {
+                volume = 0;
+            }
+            else {
+                volume = 5;
+            }
+            
+            this.setState({
+                volume
+            })
+
+            this.video.volume = volume > 1 ? 1 : 0;
+            return;
+        }
+
+        
         let {onVolumeChange} = this.props;
         if (this.state.muted) {
             return;
@@ -275,6 +294,7 @@ class HeartyMediaPlayer extends React.Component {
      * @method HeartyMediaPlayer
      */
     _setupPlaybackRate(rate) {
+
         let {onSpeedChange} = this.props;
         this.setState({
             playbackRate : rate,
@@ -536,8 +556,6 @@ class HeartyMediaPlayer extends React.Component {
             }
         }
 
-       // let videoControlsClassName = (this.state.fullScreen) ? 'video-controls fullscreen-mode' : 'video-controls';
-
         let videoControlsClassName = 'video-controls';
        
         let videoControlsWrappersClass = 'video-controls-wrapper';
@@ -617,6 +635,56 @@ class HeartyMediaPlayer extends React.Component {
             </a>
         ) : '';
 
+        let videoControlsComponent = (
+            <div className={videoControlsClassName}>
+                <div className={videoControlsWrappersClass}>
+                    <div className="video-controls-section section-one">
+                        <a href="javascript:;" className="control-option" onClick={playPauseFun}>{playPauseElem}</a>
+                        {backwardOption}
+                        {forwardOption}
+                        <a href="javascript:;" className="control-option video-time-info">
+                            {videoTimeInfo}
+                        </a>
+                    </div>
+                    <div className="video-controls-section section-one">
+                        {speedControlOptions}
+                        <a href="javascript:;" className="control-option volume">
+                            <div onClick={() => this._setupVolume(1)} className={volumeClassOne}></div>
+                            <div onClick={() => this._setupVolume(2)} className={volumeClassTwo}></div>
+                            <div onClick={() => this._setupVolume(3)} className={volumeClassThree}> </div>
+                            <div onClick={() => this._setupVolume(4)} className={volumeClassFour}></div>
+                            <div onClick={() => this._setupVolume(5)} className={volumeClassFive}></div>
+                        </a>
+                        {fixedTopOption}
+                        {fullScreenOption}
+                    </div> 
+                </div>
+                <div className="video-progress-tracker" 
+                        ref={(c) => {this.videoprogress = c}}>
+                        <div className="progress-elem">
+                            <PrettyProgressbar 
+                                percentage={this.state.progress} 
+                                progressbarStyle={progressbarStyle}
+                                progressStyle={progressStyle}
+                                type='default'/>
+                        </div>
+                        <input type="range" 
+                            min="1" 
+                            max="100" 
+                            value={this.state.progress} 
+                            onChange={this._progressRangeHandler.bind(this)}
+                            className="progressRange slider" 
+                            id="progressRange"/>
+                </div>
+            </div>
+        )
+
+        let IOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+        if (IOS) {
+            videoControlsComponent = null;
+        }
+
         return (
             <div className={heartyMediaPlayerClass} 
                  id={heartyMediaPlayerId}
@@ -631,50 +699,10 @@ class HeartyMediaPlayer extends React.Component {
                     </div>
                     <video 
                         ref={(c) => {this.video = c}} 
-                        onClick={playPauseFun}>
+                        onClick={playPauseFun} controls={IOS}>
                         {this.state.sourceElem}
                     </video>
-                    <div className={videoControlsClassName}>
-                        <div className={videoControlsWrappersClass}>
-                            <div className="video-controls-section section-one">
-                                <a href="javascript:;" className="control-option" onClick={playPauseFun}>{playPauseElem}</a>
-                                {backwardOption}
-                                {forwardOption}
-                                <a href="javascript:;" className="control-option video-time-info">
-                                    {videoTimeInfo}
-                                </a>
-                            </div>
-                            <div className="video-controls-section section-one">
-                                {speedControlOptions}
-                                <a href="javascript:;" className="control-option volume">
-                                    <div onClick={() => this._setupVolume(1)} className={volumeClassOne}></div>
-                                    <div onClick={() => this._setupVolume(2)} className={volumeClassTwo}></div>
-                                    <div onClick={() => this._setupVolume(3)} className={volumeClassThree}> </div>
-                                    <div onClick={() => this._setupVolume(4)} className={volumeClassFour}></div>
-                                    <div onClick={() => this._setupVolume(5)} className={volumeClassFive}></div>
-                                </a>
-                                {fixedTopOption}
-                                {fullScreenOption}
-                            </div> 
-                        </div>
-                        <div className="video-progress-tracker" 
-                             ref={(c) => {this.videoprogress = c}}>
-                                <div className="progress-elem">
-                                    <PrettyProgressbar 
-                                        percentage={this.state.progress} 
-                                        progressbarStyle={progressbarStyle}
-                                        progressStyle={progressStyle}
-                                        type='default'/>
-                                </div>
-                                <input type="range" 
-                                    min="1" 
-                                    max="100" 
-                                    value={this.state.progress} 
-                                    onChange={this._progressRangeHandler.bind(this)}
-                                    className="progressRange slider" 
-                                    id="progressRange"/>
-                        </div>
-                    </div>
+                    {videoControlsComponent}
                 </div>
             </div>
         )
