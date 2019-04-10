@@ -156,7 +156,7 @@
                         text-decoration: none!important;
 
                         @media (max-width: 780px) {
-                            width: 35px;
+                           width: calc(100vw/7.5);
                         }
         
                         &.video-time-info {
@@ -257,6 +257,7 @@
                             align-items: baseline;
                             padding: 1px 0px;
                             margin-left: 8px;
+                            transform: rotate(-1deg);
 
                             div {
                                 width: 3px;
