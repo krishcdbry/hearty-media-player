@@ -1104,10 +1104,13 @@ var HeartyMediaPlayer = function (_React$Component) {
 
                 if (_constants.validVideoTypes.indexOf(type) > -1) {
                     videoType += type;
-                    sourceElem = _react2.default.createElement('source', { src: this.state.src, type: videoType, ref: function ref(c) {
-                            _this4.source = c;
-                        } });
+                } else {
+                    videoType += 'mp4';
                 }
+
+                sourceElem = _react2.default.createElement('source', { src: this.state.src, type: videoType, ref: function ref(c) {
+                        _this4.source = c;
+                    } });
             }
             return sourceElem;
         }

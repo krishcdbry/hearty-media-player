@@ -526,8 +526,11 @@ class HeartyMediaPlayer extends React.Component {
 
             if (validVideoTypes.indexOf(type) > -1) {
                 videoType += type;
-                sourceElem = <source src={this.state.src} type={videoType} ref={(c) => {this.source = c}} />;
+            } else {
+                videoType += 'mp4';
             }
+
+            sourceElem = <source src={this.state.src} type={videoType} ref={(c) => {this.source = c}} />;
         }
         return sourceElem;
     }
