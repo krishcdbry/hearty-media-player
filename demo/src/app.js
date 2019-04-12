@@ -74,9 +74,10 @@ class App extends React.Component {
                 <h1>Hearty Media Player</h1>
                 <div className="videos">
                     <div className="section section-one">
-                        <h2> Deafult</h2>
+                        <h2> Deafult (Src, Poster)</h2>
                         <HeartyMediaPlayer 
-                        src="https://www.w3schools.com/html/movie.ogg"/>
+                        src="https://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
+                        poster="http://camendesign.com/code/video_for_everybody/poster.jpg"/>
                     </div>
 
                     <div className="section section-one">
@@ -120,6 +121,7 @@ class App extends React.Component {
                             allowBackward={true}
                             allowFixedTop={true}
                             allowSpeedControls={true}
+                            isBodyFullScreen={true}
                             onLoadVideo={this.onLoadVideoCallback.bind(this)}
                             onStartVideo={this.onStartVideoCallback.bind(this)}
                             onPauseVideo={this.onPauseVideoCallback.bind(this)}
