@@ -120,6 +120,7 @@ class App extends React.Component {
                             allowBackward={true}
                             allowFixedTop={true}
                             allowSpeedControls={true}
+                            isBodyFullScreen={true}
                             onLoadVideo={this.onLoadVideoCallback.bind(this)}
                             onStartVideo={this.onStartVideoCallback.bind(this)}
                             onPauseVideo={this.onPauseVideoCallback.bind(this)}
