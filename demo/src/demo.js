@@ -76,8 +76,8 @@ class App extends React.Component {
                     <div className="section section-one">
                         <h2> Deafult (Src, Poster)</h2>
                         <HeartyMediaPlayer 
-                        src="https://www.w3schools.com/html/movie.ogg"
-                        poster="https://images.fandango.com/ImageRenderer/0/0/redesign/static/img/default_poster.png/0/images/masterrepository/other/INTRO_AvengersAgeUltron_FINAL.jpg"/>
+                        src="https://www.quirksmode.org/html5/videos/big_buck_bunny.mp4"
+                        poster="http://camendesign.com/code/video_for_everybody/poster.jpg"/>
                     </div>
 
                     <div className="section section-one">
