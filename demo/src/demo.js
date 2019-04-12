@@ -68,7 +68,6 @@ class App extends React.Component {
     }
 
     render() {
-
         return (
             <div className="app">
                 <h1>Hearty Media Player</h1>
